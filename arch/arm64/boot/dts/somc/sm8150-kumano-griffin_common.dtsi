@@ -203,5 +203,6 @@
 #include "sec_touchscreen.dtsi"
 #include "somc-kumano-display.dtsi"
 #include "somc-kumano-display-griffin.dtsi"
+#include "sm8150-kumano-griffin-camera.dtsi"
 #include "charger-kumano-common.dtsi"
 #include "charger-kumano-griffin.dtsi"

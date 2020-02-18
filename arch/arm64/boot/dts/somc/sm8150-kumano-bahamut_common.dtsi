@@ -592,5 +592,6 @@
 #include "somc-kumano-touch_bahamut.dtsi"
 #include "somc-kumano-display.dtsi"
 #include "somc-kumano-display-bahamut.dtsi"
+#include "sm8150-kumano-bahamut-camera.dtsi"
 #include "charger-kumano-common.dtsi"
 #include "charger-kumano-bahamut.dtsi"
