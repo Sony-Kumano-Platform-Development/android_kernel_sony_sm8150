@@ -867,6 +867,11 @@ int dsi_connector_get_modes(struct drm_connector *connector, void *data)
 	for (i = 0; i < count; i++) {
 		struct drm_display_mode *m;
 
+#ifdef CONFIG_DRM_SDE_SPECIFIC_PANEL
+		if (modes[i].splash_dms)
+			modes[i].dsi_mode_flags |= DSI_MODE_FLAG_DMS;
+#endif
+
 		memset(&drm_mode, 0x0, sizeof(drm_mode));
 		dsi_convert_to_drm_mode(&modes[i], &drm_mode);
 		m = drm_mode_duplicate(connector->dev, &drm_mode);
@@ -882,9 +887,15 @@ int dsi_connector_get_modes(struct drm_connector *connector, void *data)
 		/* set the first mode in list as preferred */
 		if (i == 0)
 			m->type |= DRM_MODE_TYPE_PREFERRED;
+
 		drm_mode_probed_add(connector, m);
+
 #ifdef CONFIG_DRM_SDE_SPECIFIC_PANEL
-		if (modes[i].default_timing)
+		/*
+		 * Set this mode if it's either the default one OR
+		 * if we want it at the end of continuous splash.
+		 */
+		if (modes[i].default_timing || modes[i].splash_dms)
 			drm_set_preferred_mode(
 				connector, m->hdisplay, m->vdisplay);
 #endif /* CONFIG_DRM_SDE_SPECIFIC_PANEL */
