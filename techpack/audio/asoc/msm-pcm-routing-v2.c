@@ -1590,6 +1590,7 @@ int msm_pcm_routing_reg_phy_stream(int fedai_id, int perf_mode,
 	uint16_t bits_per_sample = 16, be_bit_width;
 	uint32_t passthr_mode = LEGACY_PCM;
 	int ret = 0;
+	bool is_copp_24bit = false;
 
 	if (fedai_id > MSM_FRONTEND_DAI_MM_MAX_ID) {
 		/* bad ID assigned in machine driver */
@@ -1633,6 +1634,8 @@ int msm_pcm_routing_reg_phy_stream(int fedai_id, int perf_mode,
 
 			bits_per_sample = msm_routing_get_bit_width(
 						msm_bedais[i].format);
+			if (bits_per_sample == 24)
+				is_copp_24bit = true;
 
 			app_type =
 			fe_dai_app_type_cfg[fedai_id][session_type][i].app_type;
@@ -1646,6 +1649,11 @@ int msm_pcm_routing_reg_phy_stream(int fedai_id, int perf_mode,
 					app_type_cfg[app_type_idx].bit_width;
 			} else
 				sample_rate = msm_bedais[i].sample_rate;
+
+			if (path_type == 2) {
+				if (is_copp_24bit == true)
+					bits_per_sample = 24;
+			}
 
 			acdb_dev_id =
 			fe_dai_app_type_cfg[fedai_id][session_type][i]
@@ -1829,6 +1837,7 @@ static void msm_pcm_routing_process_audio(u16 reg, u16 val, int set)
 	struct msm_pcm_routing_fdai_data *fdai;
 	uint32_t passthr_mode;
 	bool is_lsm;
+	bool is_copp_24bit = false;
 
 	pr_debug("%s: reg %x val %x set %x\n", __func__, reg, val, set);
 
@@ -1897,6 +1906,8 @@ static void msm_pcm_routing_process_audio(u16 reg, u16 val, int set)
 
 			bits_per_sample = msm_routing_get_bit_width(
 						msm_bedais[reg].format);
+			if (bits_per_sample == 24)
+				is_copp_24bit = true;
 
 			app_type =
 			fe_dai_app_type_cfg[val][session_type][reg].app_type;
@@ -1918,6 +1929,11 @@ static void msm_pcm_routing_process_audio(u16 reg, u16 val, int set)
 					app_type_cfg[app_type_idx].bit_width;
 			} else
 				sample_rate = msm_bedais[reg].sample_rate;
+
+			if (path_type == 2) {
+				if (is_copp_24bit == true)
+					bits_per_sample = 24;
+			}
 
 			topology = msm_routing_get_adm_topology(val,
 								session_type,
