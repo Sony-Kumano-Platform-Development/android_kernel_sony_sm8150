@@ -171,6 +171,7 @@ int32_t cam_create_device_hdl(struct cam_create_dev_hdl *hdl_data)
 	int32_t handle;
 	bool crm_active;
 
+	/* TODO: check what the bloody hell this is */
 	crm_active = cam_req_mgr_is_open();
 	if (!crm_active) {
 		CAM_ERR(CAM_ICP, "CRM is not ACTIVE");
