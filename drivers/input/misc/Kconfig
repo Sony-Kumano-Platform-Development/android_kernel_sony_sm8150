@@ -356,7 +356,7 @@ config INPUT_CPCAP_PWRBUTTON
 	  be called cpcap-pwrbutton.
 
 config INPUT_FP_EGIS
-	bool "Fingerprint EGIS device"
+	tristate "Fingerprint EGIS device"
 	default n
 
 config ET580_USE_TIMER_SETUP
@@ -365,25 +365,25 @@ config ET580_USE_TIMER_SETUP
 	default n
 
 config INPUT_BU520X1NVX
-	bool "BU520X1NVX hall sensor driver"
+	tristate "BU520X1NVX hall sensor driver"
 	default n
 
 config SONY_CAMERA
-        bool "Sony camera"
+        tristate "Sony camera"
         default n
 
 config CAMERA_SYNC
-        bool "Camera sync"
+        tristate "Camera sync"
 	depends on SONY_CAMERA
         default n
 
 config FLASH_LED
-        bool "Flash LED"
+        tristate "Flash LED"
 	depends on SONY_CAMERA
         default n
 
 config INPUT_TCS3490
-        bool "AMS TCS3490 color sensor"
+        tristate "AMS TCS3490 color sensor"
         default n
 
 config NFC_PN553_DEVICES
