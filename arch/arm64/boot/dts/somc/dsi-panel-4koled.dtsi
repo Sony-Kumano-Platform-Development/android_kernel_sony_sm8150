@@ -173,9 +173,6 @@
 				somc,mdss-dsi-flm2-on-command-state = "dsi_lp_mode";
 				somc,mdss-dsi-flm2-off-command-state = "dsi_lp_mode";
 			};
-
-			/* TODO: See if panel resolution switching is possible */
-			/delete-node/ timing@0;
 			timing@1 {
 				qcom,mdss-dsi-panel-width = <1644>;
 				qcom,mdss-dsi-panel-height = <3840>;
