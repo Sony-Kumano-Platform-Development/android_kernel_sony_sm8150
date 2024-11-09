@@ -550,10 +550,20 @@
 	firmware: firmware {
 		android {
 			compatible = "android,firmware";
-			boot_devices = "soc/1d84000.ufshc";
 			shared_meta: vbmeta {
 				compatible = "android,vbmeta";
 				parts = "vbmeta,boot,system,vendor,dtbo";
+			};
+			android_q_fstab: fstab {
+				compatible = "android,fstab";
+				vendor {
+					compatible = "android,vendor";
+					dev = "/dev/block/platform/soc/8804000.sdhci/by-name/vendor";
+					type = "ext4";
+					mnt_flags = "ro,barrier=1,discard";
+					fsmgr_flags = "wait,slotselect,avb";
+					status = "ok";
+				};
 			};
 		};
 	};
